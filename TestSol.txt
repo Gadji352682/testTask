@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+
+int main(void)
+{
+
+    int takt = 1;
+
+    int mb32 = 2;
+    int mb16 = 4;
+    int mb8 = 8;
+
+    int numQuery1 = 0;
+    int numQuery2 = 0;
+
+    int cMb8 = 0;
+    int cMb16 = 0;
+    int cMb32 = 0;
+
+    int countMb16 = 0;
+    int countMb32 = 0;
+
+    bool errExit = false;
+
+    while(!errExit)
+    {
+        if(takt % 33 == 0)
+        {
+            if(cMb8 > 0)
+            {
+                mb8++;
+            }
+
+            else if (cMb16 > 0)
+            {
+                mb16++;
+            }
+
+            else if (cMb32 > 0)
+            {
+                mb32++;
+            }
+        }
+
+        if(takt % 65 == 0)
+        {
+            if (countMb16 > 0)
+            {
+                mb16++;
+            }
+
+            else if (countMb32 > 0)
+            {
+                mb32++;
+            }
+        }
+
+        if(takt % 12 == 0)
+        {
+            if(mb16 == 0 && mb32 == 0)
+            {
+                errExit = true;
+                printf("1: %d\n",numQuery1);
+            }
+
+            if(mb16 > 0)
+            {
+                mb16--;
+                numQuery1++;
+                countMb16++;
+
+            }
+
+            else if (mb32 > 0)
+            {
+                mb32--;
+                numQuery1++;
+                countMb32++;
+            }
+        }
+
+        if(takt % 6 == 0)
+        {
+            if(mb32 == 0 && mb16 == 0 && mb8 == 0)
+            {
+                errExit = true;
+                printf("2: %d\n",numQuery2);
+            }
+
+            if(mb8 > 0)
+            {
+                mb8--;
+                numQuery2++;
+                cMb8++;
+            }
+
+            else if (mb16 > 0)
+            {
+                mb16--;
+                numQuery2++;
+                cMb16++;
+            }
+
+            else if (mb32 > 0)
+            {
+                mb32--;
+                numQuery2++;
+                cMb32++;
+            }
+        }
+
+
+
+        takt++;
+    }
+
+    return 0;
+}
+
