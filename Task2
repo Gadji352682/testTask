@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+int main(void)
+{
+
+    unsigned long long wOrig;
+
+    for(wOrig = 1; ;wOrig++)
+    {
+        unsigned long long s = 0;
+        unsigned long long d = 0;
+        unsigned long long a = 0;
+        unsigned long long p = 1;
+        unsigned long long w = wOrig;
+
+        while(true)
+        {
+            do
+            {
+               unsigned long long c = w % 10;
+               unsigned long long k = c + a + d;
+               s = s + (k % 10) * p;
+               d = k / 10;
+               a = c;
+               p = p * 10;
+               w = w / 10;
+
+            } while(w > 0);
+
+            s = s + (a + d) * p;
+
+            if(s == 49906281183)
+            {
+                printf("S = %llu", s);
+                printf("W = %llu", wOrig);
+                exit(0);
+            } else if(s > 49906281183)
+            {
+                printf("Out of Bounds!!");
+                printf("%llu",s);
+                exit(1);
+            }
+
+            break;
+        }
+    }
+
+    return 0;
+}
